@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "Word")
-class Word(word: String, pronunciation: String?, partOfSpeech: Int) {
+class Word(var word: String, var pronunciation: String?, var partOfSpeech: Int) {
 
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
