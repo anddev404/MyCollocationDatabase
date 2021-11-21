@@ -1,0 +1,3 @@
+rootProject.name = "MyCollocationDatabase"
+include ':app'
+include ':app:myDatabase'
