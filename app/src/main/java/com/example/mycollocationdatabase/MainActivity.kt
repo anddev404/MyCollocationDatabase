@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.room.Room.databaseBuilder
 import com.example.mydatabase.CollocationDatabase
@@ -22,10 +23,9 @@ class MainActivity : AppCompatActivity() {
 
         val db = initializeDatabase()
         val wordDao = db.wordDao()
-
         var list: List<Word> = ArrayList<Word>()
-
         GlobalScope.launch {
+
 
             var exampleWord1 = Word(
                 "home", null, Word.NOUN
@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity() {
             var exampleWord3 = Word(
                 "play", null, Word.VERB
             )
-            wordDao.insert(exampleWord1)
-            wordDao.insert(exampleWord2)
-            wordDao.insert(exampleWord3)
+//            wordDao.insert(exampleWord1)
+//            wordDao.insert(exampleWord2)
+//            wordDao.insert(exampleWord3)
 
             list = wordDao.getAll()
 
