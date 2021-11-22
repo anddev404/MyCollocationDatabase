@@ -10,7 +10,7 @@ interface WordDao {
     fun getAll(): List<Word>
 
     @Query("SELECT * FROM Word WHERE id = :userIds")
-    fun getById(userIds: Int): Word
+    fun getById(userIds: Int): Word?
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

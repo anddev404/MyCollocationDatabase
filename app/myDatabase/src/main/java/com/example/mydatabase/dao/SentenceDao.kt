@@ -10,7 +10,7 @@ interface SentenceDao {
     fun getAll(): List<Sentence>
 
     @Query("SELECT * FROM Sentence WHERE id = :sentenceId")
-    fun getById(sentenceId: Int): Sentence
+    fun getById(sentenceId: Int): Sentence?
 
     @Query("SELECT * FROM Sentence WHERE collocationId = :collocationId")
     fun getByCollocationId(collocationId: Int): List<Sentence>

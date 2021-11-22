@@ -10,7 +10,7 @@ interface CollocationDao {
     fun getAll(): List<Collocation>
 
     @Query("SELECT * FROM Collocation WHERE id = :collocationId")
-    fun getById(collocationId: Int): Collocation
+    fun getById(collocationId: Int): Collocation?
 
     @Query("SELECT * FROM Collocation WHERE wordId = :wordId")
     fun getByWordId(wordId: Int): List<Collocation>
