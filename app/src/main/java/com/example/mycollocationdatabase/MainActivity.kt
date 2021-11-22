@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import androidx.room.Room
 import androidx.room.Room.databaseBuilder
 import com.example.mydatabase.CollocationDatabase
-import com.example.mydatabase.Word
+import com.example.mydatabase.model.Word
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

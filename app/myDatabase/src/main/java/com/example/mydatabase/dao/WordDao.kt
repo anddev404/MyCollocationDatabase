@@ -1,6 +1,7 @@
-package com.example.mydatabase
+package com.example.mydatabase.dao
 
 import androidx.room.*
+import com.example.mydatabase.model.Word
 
 @Dao
 interface WordDao {

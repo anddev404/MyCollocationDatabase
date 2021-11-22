@@ -1,8 +1,9 @@
-package com.example.mydatabase
+package com.example.mydatabase.model
 
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.example.mydatabase.model.Sentence
 
 @Entity(tableName = "Collocation")
 class Collocation(var wordId: Int, var relation: Int, var collocation: String) {
