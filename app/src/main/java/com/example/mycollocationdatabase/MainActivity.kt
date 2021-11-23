@@ -1,11 +1,10 @@
 package com.example.mycollocationdatabase
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room.databaseBuilder
 import com.example.mydatabase.CollocationDatabase
 import com.example.mydatabase.model.Word
@@ -24,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         val db = initializeDatabase()
         val wordDao = db.wordDao()
         var list: List<Word> = ArrayList<Word>()
+
         GlobalScope.launch {
 
 
