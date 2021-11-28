@@ -4,8 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "Word")
+@Entity(tableName = "words")
 class Word(var word: String, var pronunciation: String?, var partOfSpeech: Int) {
+
+    var spareString = ""//możźe kiedyś sie przyda żeby nie aktualizować bazy
+    var spareInt = 0//możźe kiedyś sie przyda żeby nie aktualizować bazy
 
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
