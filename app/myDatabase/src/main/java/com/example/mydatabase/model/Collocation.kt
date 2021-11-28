@@ -13,17 +13,17 @@ class Collocation(
     @ColumnInfo(name = "kollokation", defaultValue = "")
     var collocation: String,
     @ColumnInfo(defaultValue = "")
-    var relation: String,
+    var relation: String = "",
     @ColumnInfo(name = "lemmahits", defaultValue = "0")
     var frequency: Int,
     @ColumnInfo(defaultValue = "")
-    var basisword: String,
+    var basisword: String = "",
     @ColumnInfo(defaultValue = "0")
-    var isChecked: Boolean,
+    var isChecked: Boolean = false,
     @ColumnInfo(defaultValue = "0")
-    var numberOfDownloads: Int,
+    var numberOfDownloads: Int = 0,
     @ColumnInfo(defaultValue = "0")
-    var idSentences: Int
+    var idSentences: Int = 0
 ) {
 
     @PrimaryKey(autoGenerate = true)
