@@ -11,17 +11,23 @@ import com.google.gson.reflect.TypeToken
 class Collocation(
 
     @ColumnInfo(name = "kollokation", defaultValue = "")
-    var collocation: String,
+    var collocation: String = "",
+
     @ColumnInfo(defaultValue = "")
     var relation: String = "",
+
     @ColumnInfo(name = "lemmahits", defaultValue = "0")
     var frequency: Int = 0,
+
     @ColumnInfo(defaultValue = "")
     var basisword: String = "",
+
     @ColumnInfo(defaultValue = "0")
     var isChecked: Boolean = false,
+
     @ColumnInfo(defaultValue = "0")
     var numberOfDownloads: Int = 0,
+    
     @ColumnInfo(defaultValue = "0")
     var idSentences: Int = 0
 ) {
