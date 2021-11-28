@@ -20,7 +20,7 @@ interface WordDao {
     fun insertAll(words: List<Word>): Int
 
     @Update
-    fun update(word: Word): Int
+    fun update(word: Word): Long
 
     @Delete
     fun delete(word: Word): Int
