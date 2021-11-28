@@ -6,30 +6,31 @@ import com.example.mydatabase.model.Word
 @Dao
 interface WordDao {
 
-    @Query("SELECT * FROM Word.words")
+    @Query("SELECT * FROM words")
     fun getAll(): List<Word>
 
-    @Query("SELECT * FROM Word.words WHERE id = :userIds")
+    @Query("SELECT * FROM words WHERE id = :userIds")
     fun getById(userIds: Int): Word?
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(word: Word): Long
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(words: List<Word>): Int
+    //TODO to nie działa może trzeba vararg  ...
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    fun insertAll(words: List<Word>): Int
 
     @Update
-    fun update(word: Word): Long
+    fun update(word: Word): Int
 
     @Delete
     fun delete(word: Word): Int
 
-    @Query("DELETE FROM Word.words WHERE id = :userIds")
+    @Query("DELETE FROM words WHERE id = :userIds")
     fun deleteById(userIds: Int): Int
 
 
-    @Query("SELECT COUNT(*) FROM Word.words")
+    @Query("SELECT COUNT(*) FROM words")
     fun getNumberOfWords(): Int
 
 }
