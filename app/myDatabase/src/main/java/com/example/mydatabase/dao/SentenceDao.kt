@@ -7,7 +7,7 @@ import com.example.mydatabase.model.Sentence
 interface SentenceDao {
 
     //TODO czy insert wpakuje takze id do obiektu czy tylko go zwraca
-    @Update
+    @Insert
     fun insert(sentence: Sentence): Long
 
     @Query("SELECT * FROM Sentence.sentences WHERE id = :sentenceId")
