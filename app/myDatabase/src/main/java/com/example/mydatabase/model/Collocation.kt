@@ -15,7 +15,7 @@ class Collocation(
     @ColumnInfo(defaultValue = "")
     var relation: String = "",
     @ColumnInfo(name = "lemmahits", defaultValue = "0")
-    var frequency: Int,
+    var frequency: Int = 0,
     @ColumnInfo(defaultValue = "")
     var basisword: String = "",
     @ColumnInfo(defaultValue = "0")
