@@ -21,7 +21,9 @@ class Collocation(
     @ColumnInfo(defaultValue = "0")
     var isChecked: Boolean,
     @ColumnInfo(defaultValue = "0")
-    var numberOfDownloads: Int
+    var numberOfDownloads: Int,
+    @ColumnInfo(defaultValue = "0")
+    var idSentences: Int
 ) {
 
     @PrimaryKey(autoGenerate = true)
