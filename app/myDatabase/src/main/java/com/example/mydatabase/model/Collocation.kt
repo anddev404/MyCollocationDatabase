@@ -27,7 +27,7 @@ class Collocation(
 
     @ColumnInfo(defaultValue = "0")
     var numberOfDownloads: Int = 0,
-    
+
     @ColumnInfo(defaultValue = "0")
     var idSentences: Int = 0
 ) {
