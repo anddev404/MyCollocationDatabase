@@ -14,7 +14,7 @@ interface CollocationDao {
 
 
     @Update
-    fun update(sentence: Collocation): Int
+    fun update(sentence: Collocation): Long
 
 
     @Query("SELECT COUNT(*) FROM collocations")
