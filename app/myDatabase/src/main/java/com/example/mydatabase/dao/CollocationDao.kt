@@ -9,16 +9,14 @@ interface CollocationDao {
     @Insert
     fun insert(sentence: Collocation): Long
 
-    @Query("SELECT * FROM Collocation.collocations WHERE basisword = :word")
+    @Query("SELECT * FROM collocations WHERE basisword = :word")
     fun getByWord(word: String): List<Collocation>
 
-    @Query("SELECT * FROM Collocation.collocations WHERE  basisword = :word AND relation = :relation")
+    @Query("SELECT * FROM collocations WHERE  basisword = :word AND relation = :relation")
     fun getByWordIdAndRelation(word: String, relation: String): List<Collocation>
 
-
     @Update
-    fun update(sentence: Collocation): Long
-
+    fun update(collocation: Collocation):Int
 
     @Query("SELECT COUNT(*) FROM collocations")
     fun getNumberOfCollocations(): Int
