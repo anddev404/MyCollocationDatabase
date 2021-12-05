@@ -14,6 +14,9 @@ class Collocation(
     var collocation: String = "",
 
     @ColumnInfo(defaultValue = "")
+    var translatedCollocationTranslo: String = "",
+
+    @ColumnInfo(defaultValue = "")
     var relation: String = "",
 
     @ColumnInfo(name = "lemmahits", defaultValue = "0")

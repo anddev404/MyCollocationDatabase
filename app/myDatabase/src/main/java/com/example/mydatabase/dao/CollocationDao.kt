@@ -6,6 +6,14 @@ import com.example.mydatabase.model.Collocation
 @Dao
 interface CollocationDao {
 
+    @Query("SELECT * FROM collocations where id > :od and id <= :dowlacznie")
+    fun getAll(od: Int, dowlacznie: Int): List<Collocation>
+
+    @Query("SELECT * FROM collocations where translatedCollocationTranslo=''")
+    fun getAllNotTranslated(): List<Collocation>
+//    @Query("SELECT * FROM collocations where LENGTH(translatedCollocationTranslo)==0")
+//    fun getAllRest(od: Int, dowlacznie: Int): List<Collocation>
+
     @Insert
     fun insert(sentence: Collocation): Long
 
@@ -16,7 +24,7 @@ interface CollocationDao {
     fun getByWordIdAndRelation(word: String, relation: String): List<Collocation>
 
     @Update
-    fun update(collocation: Collocation):Int
+    fun update(collocation: Collocation): Int
 
     @Query("SELECT COUNT(*) FROM collocations")
     fun getNumberOfCollocations(): Int
