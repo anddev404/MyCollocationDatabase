@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room.databaseBuilder
 import com.example.mydatabase.CollocationDatabase
 import com.example.mydatabase.dao.CollocationDao
+import com.example.mydatabase.dao.SentenceDao
 import com.example.mydatabase.model.Collocation
+import com.example.mydatabase.model.Sentence
 import com.example.mydatabase.model.Translation
 import com.example.mydatabase.model.UnifiedCollocations
 import com.google.gson.Gson
@@ -75,8 +77,8 @@ class MainActivity : AppCompatActivity() {
     var time = 25L
     var odstotysiecy = 0
     var dostotysiecy = 2
-    var listUnified = arrayListOf<UnifiedCollocations>()
-    lateinit var collocationDao: CollocationDao
+    lateinit var sentenceDao: SentenceDao
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -120,12 +122,7 @@ class MainActivity : AppCompatActivity() {
         updatedGood = findViewById(R.id.updatedGood) as TextView
         updatedBad = findViewById(R.id.updatedMax) as TextView
         znak1200 = findViewById(R.id.znakow1200) as Button
-        getAll.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                getAll()
-            }
 
-        })
         getRest.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
 
@@ -167,42 +164,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-        znak1.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                UnifiedCollocations.liczbaZnakow = 1
-                obliczUnified(collocation)
-                status.text =
-                    UnifiedCollocations.znak + " ||| " + time + " ||| " + UnifiedCollocations.liczbaZnakow + " znakow " + " ||| " + (odstotysiecy * 100000) + " - " + (dostotysiecy * 100000)
-            }
 
-        })
-        znak100.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                UnifiedCollocations.liczbaZnakow = 100
-                obliczUnified(collocation)
-                status.text =
-                    UnifiedCollocations.znak + " ||| " + time + " ||| " + UnifiedCollocations.liczbaZnakow + " znakow " + " ||| " + (odstotysiecy * 100000) + " - " + (dostotysiecy * 100000)
-            }
-
-        })
-        znak500.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                UnifiedCollocations.liczbaZnakow = 650
-                obliczUnified(collocation)
-                status.text =
-                    UnifiedCollocations.znak + " ||| " + time + " ||| " + UnifiedCollocations.liczbaZnakow + " znakow " + " ||| " + (odstotysiecy * 100000) + " - " + (dostotysiecy * 100000)
-            }
-
-        })
-        znak1200.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                UnifiedCollocations.liczbaZnakow = 1200
-                obliczUnified(collocation)
-                status.text =
-                    UnifiedCollocations.znak + " ||| " + time + " ||| " + UnifiedCollocations.liczbaZnakow + " znakow " + " ||| " + (odstotysiecy * 100000) + " - " + (dostotysiecy * 100000)
-            }
-
-        })
         start.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 status.text =
@@ -247,192 +209,21 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-        sto.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                time = 100L
-                timeTextView.text = "" + 100
-            }
 
-        })
-        tysiuac.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                time = 1000L
-                timeTextView.text = "" + 1000
-            }
-
-        })
-        piectysiecy.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                time = 5000L
-                timeTextView.text = "" + 5000
-            }
-
-        })
-        pietnascitys.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                time = 15000L
-                timeTextView.text = "" + 15000
-            }
-
-        })
         var context = this
 
         val db = initializeDatabase()
 //        val sentenceDao = db.sentenceDao()
-        collocationDao = db.collocationDao()
+        sentenceDao = db.sentenceDao()
         status.text =
             UnifiedCollocations.znak + " ||| " + time + " ||| " + UnifiedCollocations.liczbaZnakow + " znakow " + " ||| " + (odstotysiecy * 100000) + " - " + (dostotysiecy * 100000)
 
     }
 
-    var unifiedCol = UnifiedCollocations()
-    var collocation = listOf<Collocation>()
-    fun getAll() {
-        listUnified = arrayListOf<UnifiedCollocations>()
-
-        GlobalScope.launch {
-
-//1 tworze nowy typ ktory porzechiowuje liste kolokacji================
-            //2 pobieram wszytkie kolokacjie===========================
-            //3 sprawdzam kazda kolokacje pod wzgledem dlugosic:================
-            //4 tworze pusty stringSumujacy===================
-            //5 jesli string sumujacy + kolokacja < 1200 to:===================
-            //6 dodaje kolokacje do listy  i dodjae stringi i przechodze do nastepnej kolokacji===============
-            //7 jesli nie to zapisuje obiekt(z lista kolkacji) do listy i tworze nowy obiekt z pustym stringiem================
-            // przed zapisem nalezy usunac kropki i białe znaki na koncu i podczatku oraz styl zapisu jest taki kolokacja. drugfa kolkacja. trzecia kolkacja================
-            //jesli mam cala liste obiektow z listami to sciagam//======================
-            //przy dodaniu pierwszegho nie sprawdzac czy jest wiekszy niz liczba znakow bo mozna by sie zapetlic==============
-            // po sciagnieciu dekoduje tluamczenie sprawdzajac wczesniej czy mozna tzn czy liczba rozdizelonych przez kropke == liczbie kolkacji
-//dodaje to textviewu liczbe kolkacji, liczbe obiektow z listami, procentowa liczbe przetworzonych, \////=================
-// liczbe zdekodowanych dobrze i żle,  liczbe utworzonych watkow oraz liczbe dobrze doewbranych oraz zle odebranych z kodem nie 200================
-            //regulacja czasu pobierania tzn przyciski oreaz zmienna w petli czas np 1000/45 =23, 1000/40=25 , itp
-            //  text view informujacy o zakonczeniu pobierania tzn jak wyjdzie z petli
-//dodanie kolokcaji do telefonuuu bo nie mam całej bazy w telefonie
-            //uruchomienie
-//przycisk stopu oraz pauzy
-
-/////////
-            Handler(Looper.getMainLooper()).postDelayed(
-                {
-//
-                    allCollocation.text =
-                        "pobieram " + (odstotysiecy * 100000) + " - " + (dostotysiecy * 100000)
-
-                },
-                0
-            )
-            collocation =collocationDao.getAllNotTranslated()
-//            collocation = collocationDao.getAll(odstotysiecy * 100000, dostotysiecy * 100000)
-            Handler(Looper.getMainLooper()).postDelayed(
-                {
-//
-                    allCollocation.text = "" + collocation.size
-                    sentRequest.text = "" + 0
-                    sentRequestPercent.text = "" + 0
-                    sendrequestInt = 0
-
-                    status200.text = "0"
-                    statusNot200.text = "0"
-
-                    parseGood.text = "0"
-                    parseBad.text = "0"
-
-                    convertGood.text = "0"
-                    convertBad.text = "0"
-
-                },
-                0
-            )
-
-            //Log.d("MARCIN_DATABASE", "jest ${collocation.size} w bazie");
-
-
-            obliczUnified(collocation)
-            var debug = ""
-
-
-            // tu dodac  bo ostatni nie bedzie zapisany do listy wiec trzeba go zapisac pod warunkiem ze lista kolokacji w srodku jest wieksza niz 0===========
-
-//            Handler(Looper.getMainLooper()).postDelayed(
-//                {
-////                    Toast.makeText(
-////                        context,
-////                        "pobrano: " + list.size + " words" + "\npobrano: " + listCollocation.size + " collocations",
-////                        Toast.LENGTH_LONG
-////                    )
-////                        .show();
-//                },
-//                0
-//            )
-//
-
-        }
-    }
-
     var updatedGoodInt = 0
     var updatedMaxInt = 0
-
     var updatedBadInt = 0
 
-    fun obliczUnified(collocation: List<Collocation>) {
-        listUnified = arrayListOf()
-        translated = 0
-        nottranslated = 0
-        updatedGoodInt = 0
-        updatedMaxInt = 0
-        translated = 0
-        nottranslated = 0
-        convergoodInt = 0
-        updatedGoodInt = 0
-        updatedBadInt = 0
-        converbadint = 0
-        sendrequestInt = 0
-        parseBadInt = 0
-        parseGoodInt = 0
-        statys200Int = 0
-        statusNot200Int = 0
-        updatedBadInt = 0
-        for (c in collocation) {
-            if (c.translatedCollocationTranslo.length == 0) {
-                nottranslated++
-                if (unifiedCol.string.length == 0) {
-                    unifiedCol.lista.add(c)
-                    unifiedCol.addToStringAsFirst(c)
-                    //  Log.d("MARCIN_DATABASE", "d==" + c.collocation);
-
-
-                } else {
-                    var check = unifiedCol.checkAdding(c)
-                    if (check) {
-                        unifiedCol.lista.add(c)
-                        //    Log.d("MARCIN_DATABASE", "d==" + c.collocation);
-                        unifiedCol.addToString(c)
-                    } else {
-                        listUnified.add(unifiedCol)
-                        unifiedCol = UnifiedCollocations()
-                        unifiedCol.lista.add(c)
-                        //     Log.d("MARCIN_DATABASE", "d==" + c.collocation);
-                        unifiedCol.addToStringAsFirst(c)
-                    }
-                }
-            } else {
-                translated++
-            }
-        }
-        if (unifiedCol.lista.size > 0) {
-            listUnified.add(unifiedCol)
-        }
-        //
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
-//
-                allUnifiedCollocation.text = "" + listUnified.size
-                alreadyTranslated.text =
-                    "tr= " + translated + ", not tr= " + nottranslated + ",   sum:" + (translated + nottranslated)
-            },
-            0
-        )
-    }
 
     fun initializeDatabase(): CollocationDatabase {
         return databaseBuilder(
@@ -441,12 +232,12 @@ class MainActivity : AppCompatActivity() {
         ).build()
     }
 
-    fun pobierz(collocations: UnifiedCollocations, c: CollocationDao) {
+    fun pobierz(collocations: Sentence, c: SentenceDao) {
         val clients = OkHttpClient()
         //TODO sprawdzic co sie stanie jak wyłacze internet
         val request: Request = Request.Builder()
             .url(
-                "https://translo.p.rapidapi.com/translate?to=pl&text=" + collocations.string + "&from=en&translations=false"
+                "https://translo.p.rapidapi.com/translate?to=pl&text=" + collocations.sentencesAllInOne + "&from=en&translations=false"
 
             )
             .get()
@@ -465,8 +256,7 @@ class MainActivity : AppCompatActivity() {
 //
                 sendrequestInt++
                 sentRequest.text = "" + sendrequestInt
-                sentRequestPercent.text =
-                    "" + ((sendrequestInt.toFloat() / listUnified.size) * 100) + " %"
+
             },
             0
         )
@@ -516,18 +306,12 @@ class MainActivity : AppCompatActivity() {
                                 0
                             )
 
+                            collocations.translationAllInOne = obiektJava.translated_text
+                            c.update(collocations)
+                            updatedGoodInt++
 
-                            if (collocations.decodeString(obiektJava.translated_text)) {
-                                convergoodInt++
-                                updatedMaxInt = updatedMaxInt + (collocations.lista.size)
-                                for (cc in collocations.lista) {
-                                    c.update(cc)
-                                    updatedGoodInt++
-                                }
-                            } else {
-                                converbadint++
 
-                            }
+
                             Handler(Looper.getMainLooper()).postDelayed(
                                 {
                                     convertGood.text = "" + convergoodInt
@@ -566,50 +350,40 @@ class MainActivity : AppCompatActivity() {
     fun startttt() {
         Log.d("MARCIN_DATABASE", "start sending request");
 
+
+
         GlobalScope.launch {
-            for (c in listUnified) {
+
+            for (i in odstotysiecy..4500000) {
                 if (stoped) {
-                    Log.d("MARCIN_DATABASE", "stop");
+//                    Log.d("MARCIN_DATABASE", "stop");
                     break
                 }
-                Log.d("MARCIN_DATABASE", "download");
+                var sentence = sentenceDao.getById(i)
+                if (sentence != null) {
+                    if (sentence.translationAllInOne.length > 0) {
+                        translated++
 
-                pobierz(c, collocationDao)
-                delay(time)
+                    } else {
+                        nottranslated++
+                        pobierz(sentence, sentenceDao)
+                        delay(time)
+                    }
 
-
-            }
-            Log.d("MARCIN_DATABASE", "end sending request");
-
-            Handler(Looper.getMainLooper()).postDelayed(
-                {
+                    Handler(Looper.getMainLooper()).postDelayed(
+                        {
 //
-                    status.text =
-                        UnifiedCollocations.znak + " ||| " + time + " ||| " + UnifiedCollocations.liczbaZnakow + " znakow " + " ||| " + (odstotysiecy * 100000) + " - " + (dostotysiecy * 100000) + " ENDEDDDDDDDDDDDDDDD"
-                },
-                0
-            )
+                            alreadyTranslated.text =
+                                "tr= " + translated + ", not tr= " + nottranslated + ",   sum:" + (translated + nottranslated)
+                        },
+                        0
+                    )
+                }
+            }
+
+
+//
         }
 
     }
 }
-//try {
-//    collocations =
-//        Gson().fromJson(
-//            getStringDog(),
-//            object : TypeToken<List<Collocation?>?>() {}.type
-//        )
-//
-//    collocations.get(1).isChecked = true
-//    collocations.get(3).isChecked = true
-//    collocations.get(5).isChecked = true
-//    collocations.get(10).isChecked = true
-//
-//    setExampleTranslations(collocations)
-//    for (c in collocations) {
-//        if (c.relation.equals(relation)) collocations2.add(c)
-//    }
-//
-//} catch (e: Exception) {
-//    return ArrayList<Collocation>()
-//}
