@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         collocationDao = db.collocationDao()
         sentenceDao = db.sentenceDao()
         wordDao = db.wordDao()
-        
+
         GlobalScope.launch {
 
             collocationDao.insert(Collocation("Test", "Translation", "relation", Random.nextInt()))
