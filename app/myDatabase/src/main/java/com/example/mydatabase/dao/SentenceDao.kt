@@ -2,9 +2,14 @@ package com.example.mydatabase.dao
 
 import androidx.room.*
 import com.example.mydatabase.model.Sentence
+import com.example.mydatabase.model.Word
 
 @Dao
 interface SentenceDao {
+    //   @Query("SELECT * FROM words")
+//    fun getAll(): List<Word>
+    @Query("SELECT * FROM sentences WHERE translationAllInOne=''")
+    fun getRest(): List<Sentence>
 
     //TODO czy insert wpakuje takze id do obiektu czy tylko go zwraca
     @Insert

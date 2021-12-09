@@ -9,7 +9,6 @@ class Word(
     var word: String = "",
     var pronunciation: String = "",
     var partOfSpeech: Int = 0,
-    var countCollocation: Int = 0
 ) {
 
 

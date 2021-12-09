@@ -353,36 +353,49 @@ class MainActivity : AppCompatActivity() {
 
 
         GlobalScope.launch {
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+//
+                    alreadyTranslated.text = "pobieram"
+//                                "tr= " + translated + ", not tr= " + nottranslated + ",   sum:" + (translated + nottranslated)
+                },
+                0
+            )
+            var sentences = sentenceDao.getRest()
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+//
+                    alreadyTranslated.text = "pobrano z bazy ${sentences.size}"
+//                                "tr= " + translated + ", not tr= " + nottranslated + ",   sum:" + (translated + nottranslated)
+                },
+                0
+            )
+            for (s in sentences) {
 
-            for (i in odstotysiecy..4500000) {
+
                 if (stoped) {
 //                    Log.d("MARCIN_DATABASE", "stop");
                     break
                 }
-                var sentence = sentenceDao.getById(i)
-                if (sentence != null) {
-                    if (sentence.translationAllInOne.length > 0) {
-                        translated++
+                if (s != null) {
 
-                    } else {
-                        nottranslated++
-                        pobierz(sentence, sentenceDao)
-                        delay(time)
-                    }
-
+                    nottranslated++
+                    pobierz(s, sentenceDao)
                     Handler(Looper.getMainLooper()).postDelayed(
                         {
 //
-                            alreadyTranslated.text =
-                                "tr= " + translated + ", not tr= " + nottranslated + ",   sum:" + (translated + nottranslated)
+                            alreadyTranslated.text = "" +
+                                    "tr= " + translated + ", not tr= " + nottranslated + ",   sum:" + (translated + nottranslated)
                         },
                         0
                     )
+                    delay(time)
+//                    }
+
+
                 }
-            }
-
-
 //
+            }
         }
 
     }
