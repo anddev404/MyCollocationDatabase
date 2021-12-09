@@ -20,7 +20,34 @@ class Sentence(
     var isChecked: Boolean = false,
 
     @ColumnInfo(defaultValue = "0")
-    var numberOfDownloads: Int = 0
+    var isChecked1: Boolean = false,
+
+    @ColumnInfo(defaultValue = "0")
+    var isChecked2: Boolean = false,
+
+    @ColumnInfo(defaultValue = "0")
+    var isChecked3: Boolean = false,
+
+    @ColumnInfo(defaultValue = "0")
+    var isChecked4: Boolean = false,
+
+    @ColumnInfo(defaultValue = "0")
+    var isChecked5: Boolean = false,
+
+    @ColumnInfo(defaultValue = "")
+    var sentence1: String = "",
+
+    @ColumnInfo(defaultValue = "")
+    var sentence2: String = "",
+
+    @ColumnInfo(defaultValue = "")
+    var sentence3: String = "",
+
+    @ColumnInfo(defaultValue = "")
+    var sentence4: String = "",
+
+    @ColumnInfo(defaultValue = "")
+    var sentence5: String = "",
 ) {
 
     @PrimaryKey(autoGenerate = true)
