@@ -1,6 +1,8 @@
 package com.example.mydatabase
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
 import com.example.mydatabase.dao.CollocationDao
 import com.example.mydatabase.dao.SentenceDao
@@ -14,4 +16,12 @@ abstract class CollocationDatabase : RoomDatabase() {
     abstract fun wordDao(): WordDao
     abstract fun collocationDao(): CollocationDao
     abstract fun sentenceDao(): SentenceDao
+
+    fun initializeDatabase(context: Context, databaseName: String): CollocationDatabase {
+        return databaseBuilder(
+            context,
+            CollocationDatabase::class.java, databaseName
+        ).build()
+    }
+
 }
