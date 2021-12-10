@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var context = this
-        val db = initializeDatabase()
+        val db = CollocationDatabase.initializeDatabase(context, "qwe")
 
         collocationDao = db.collocationDao()
         sentenceDao = db.sentenceDao()
@@ -56,12 +56,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    fun initializeDatabase(): CollocationDatabase {
-        return databaseBuilder(
-            applicationContext,
-            CollocationDatabase::class.java, "collocation_database"
-        ).build()
-    }
 
 }

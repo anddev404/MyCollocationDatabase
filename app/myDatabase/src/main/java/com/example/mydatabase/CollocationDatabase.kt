@@ -17,11 +17,15 @@ abstract class CollocationDatabase : RoomDatabase() {
     abstract fun collocationDao(): CollocationDao
     abstract fun sentenceDao(): SentenceDao
 
-    fun initializeDatabase(context: Context, databaseName: String): CollocationDatabase {
-        return databaseBuilder(
-            context,
-            CollocationDatabase::class.java, databaseName
-        ).build()
+    companion object {
+
+        fun initializeDatabase(context: Context, databaseName: String): CollocationDatabase {
+            return databaseBuilder(
+                context,
+                CollocationDatabase::class.java, databaseName
+            ).build()
+        }
     }
+
 
 }
