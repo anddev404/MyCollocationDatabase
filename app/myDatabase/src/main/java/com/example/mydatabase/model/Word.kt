@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "words")
 class Word(
     var word: String = "",
+    var translations: String = "",
     var pronunciation: String = "",
     var partOfSpeech: Int = 0,
 ) {

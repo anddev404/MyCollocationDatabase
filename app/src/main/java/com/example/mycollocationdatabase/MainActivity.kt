@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
             collocationDao.insert(Collocation("Test", "Translation", "relation", Random.nextInt()))
             sentenceDao.insert(Sentence("Hey"))
-            wordDao.insert(Word("Home", "Hołm", Random.nextInt()))
+            wordDao.insert(Word("Home", "Dom", "Hołm", Random.nextInt()))
 
             var c = collocationDao.getNumberOfCollocations()
             var s = sentenceDao.getNumberOfSentences()
