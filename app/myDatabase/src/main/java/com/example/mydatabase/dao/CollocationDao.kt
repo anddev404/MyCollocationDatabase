@@ -12,6 +12,9 @@ interface CollocationDao {
     @Query("SELECT * FROM collocations WHERE basisword = :word")
     fun getByWord(word: String): List<Collocation>
 
+    @Query("SELECT * FROM collocations WHERE id = :id")
+    fun getById(id: Int): Collocation?
+
     @Query("SELECT * FROM collocations WHERE  basisword = :word AND relation = :relation")
     fun getByWordIdAndRelation(word: String, relation: String): List<Collocation>
 
