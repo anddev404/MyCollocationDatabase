@@ -3,6 +3,7 @@ package com.example.mycollocationdatabase
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room.databaseBuilder
@@ -38,12 +39,24 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch {
 
             collocationDao.insert(Collocation("Test", "Translation", "relation", Random.nextInt()))
-            sentenceDao.insert(Sentence("Hey"))
+            sentenceDao.insert(Sentence("Hey", "Hej"))
             wordDao.insert(Word("Home", "Dom", "Hołm", Random.nextInt()))
 
             var c = collocationDao.getNumberOfCollocations()
             var s = sentenceDao.getNumberOfSentences()
             var w = wordDao.getNumberOfWords()
+
+            var jeden = collocationDao.searchInCollocations("tra")
+            var dwa = collocationDao.searchInTranslations("lat")
+
+            var trzy = sentenceDao.searchInSentences("he")
+            var cztery = sentenceDao.searchInTranslations("ej")
+
+
+            Log.d(
+                "DATABASE_MARCIN",
+                "return ${jeden.size} ${dwa.size} ${trzy.size} ${cztery.size}"
+            );
 
             Handler(Looper.getMainLooper()).postDelayed(
                 {

@@ -2,6 +2,7 @@ package com.example.mydatabase.dao
 
 import androidx.room.*
 import com.example.mydatabase.model.Collocation
+import com.example.mydatabase.model.Sentence
 
 @Dao
 interface CollocationDao {
@@ -23,5 +24,11 @@ interface CollocationDao {
 
     @Query("SELECT COUNT(*) FROM collocations")
     fun getNumberOfCollocations(): Int
+
+    @Query("select * from collocations where kollokation LIKE '%'||:words||'%'")
+    fun searchInCollocations(words: String): List<Collocation>
+
+    @Query("select * from collocations where translatedCollocationTranslo LIKE '%'||:words||'%'")
+    fun searchInTranslations(words: String): List<Collocation>
 
 }

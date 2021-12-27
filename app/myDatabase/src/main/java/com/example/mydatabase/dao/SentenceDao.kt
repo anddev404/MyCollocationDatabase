@@ -20,4 +20,10 @@ interface SentenceDao {
     @Query("SELECT COUNT(*) FROM sentences")
     fun getNumberOfSentences(): Int
 
+    @Query("select * from sentences where beispielsatz LIKE '%'||:words||'%'")
+    fun searchInSentences(words: String): List<Sentence>
+
+    @Query("select * from sentences where translationAllInOne LIKE '%'||:words||'%'")
+    fun searchInTranslations(words: String): List<Sentence>
+
 }
