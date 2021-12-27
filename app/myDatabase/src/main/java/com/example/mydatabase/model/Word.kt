@@ -1,4 +1,4 @@
- package com.example.mydatabase.model
+package com.example.mydatabase.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,6 +10,8 @@ class Word(
     var translations: String = "",
     var pronunciation: String = "",
     var partOfSpeech: Int = 0,
+    var greenCollocationsCount: Int = 0,
+    var greenSentencesCount: Int = 0
 ) {
 
 
