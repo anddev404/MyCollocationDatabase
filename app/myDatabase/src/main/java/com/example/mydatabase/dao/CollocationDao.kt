@@ -25,7 +25,7 @@ interface CollocationDao {
     @Query("SELECT COUNT(*) FROM collocations")
     fun getNumberOfCollocations(): Int
 
-    @Query("select * from collocations where kollokation LIKE '%'||:words||'%'")
+    @Query("select * from collocations where kollokation LIKE '%'||:words||'%' ORDER BY lemmahits DESC")
     fun searchInCollocations(words: String): List<Collocation>
 
     @Query("select * from collocations where translatedCollocationTranslo LIKE '%'||:words||'%'")
