@@ -17,7 +17,7 @@ interface CollocationDao {
     fun getByWordOnlyGreen(word: String): List<Collocation>
 
     @Query("SELECT * FROM collocations WHERE isChecked=1")
-    fun getAllGreen(word: String): List<Collocation>
+    fun getAllGreen(): List<Collocation>
 
     @Query("SELECT * FROM collocations WHERE id = :id")
     fun getById(id: Int): Collocation?
