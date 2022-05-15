@@ -12,7 +12,13 @@ class Word(
     var partOfSpeech: Int = 0,
     var greenCollocationsCount: Int = 0,
     var greenSentencesCount: Int = 0,
-    var favourite: Boolean? = false
+    var favourite: Boolean? = false,
+    var group: Int? = null,
+    var time1: Int? = null,
+    var time2: Int? = null,
+    var time3: Int? = null,
+    var time4: Int? = null,
+    var time5: Int? = null,
 ) {
 
 

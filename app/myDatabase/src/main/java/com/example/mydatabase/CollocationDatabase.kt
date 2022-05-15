@@ -14,7 +14,7 @@ import com.example.mydatabase.model.Collocation
 import com.example.mydatabase.model.Sentence
 import com.example.mydatabase.model.Word
 
-@Database(entities = [Word::class, Collocation::class, Sentence::class], version = 3)
+@Database(entities = [Word::class, Collocation::class, Sentence::class], version = 4)
 abstract class CollocationDatabase : RoomDatabase() {
     abstract fun wordDao(): WordDao
     abstract fun collocationDao(): CollocationDao
@@ -26,7 +26,8 @@ abstract class CollocationDatabase : RoomDatabase() {
             return databaseBuilder(
                 context,
                 CollocationDatabase::class.java, databaseName
-            ).addMigrations(MIGRATION_1_2).addMigrations(MIGRATION_2_3).build()
+            ).addMigrations(MIGRATION_1_2).addMigrations(MIGRATION_2_3).addMigrations(MIGRATION_3_4)
+                .build()
 //            ).addMigrations(MIGRATION_1_2).build()
 
         }
@@ -54,6 +55,24 @@ abstract class CollocationDatabase : RoomDatabase() {
                 database.execSQL("ALTER TABLE words ADD favourite INTEGER")
 
                 Log.d("DATABASE_MARCIN", "migrate from 2 to 3 ... Done!");
+
+            }
+        }
+        val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                var from = 3
+                var to = 4
+
+                Log.d("DATABASE_MARCIN", "migrate from $from to $to ... Start!");
+
+                database.execSQL("ALTER TABLE words ADD 'group' INTEGER")
+                database.execSQL("ALTER TABLE words ADD time1 INTEGER")
+                database.execSQL("ALTER TABLE words ADD time2 INTEGER")
+                database.execSQL("ALTER TABLE words ADD time3 INTEGER")
+                database.execSQL("ALTER TABLE words ADD time4 INTEGER")
+                database.execSQL("ALTER TABLE words ADD time5 INTEGER")
+
+                Log.d("DATABASE_MARCIN", "migrate from $from to $to ... Done!");
 
             }
         }
