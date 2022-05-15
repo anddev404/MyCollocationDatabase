@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
             var trzy = sentenceDao.searchInSentences("he")
             var cztery = sentenceDao.searchInTranslations("ej")
 
+            var listWords=wordDao.getAll()
 
             Log.d(
                 "DATABASE_MARCIN",
